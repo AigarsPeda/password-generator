@@ -1,5 +1,6 @@
 import React from "react";
 import "./Container.scss";
+import Button from "./button/Button";
 
 const Container: React.FC = () => {
   return (
@@ -16,7 +17,7 @@ const Container: React.FC = () => {
       <div className="text-center">
         <div className="row">
           <div className="col-md-12">
-            <button className="btn password-btn">Copy password</button>
+            <Button className="btn password-btn" label="Copy password" />
           </div>
         </div>
       </div>
