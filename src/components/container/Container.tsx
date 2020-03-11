@@ -2,10 +2,15 @@ import React from "react";
 import "./Container.scss";
 import Button from "./button/Button";
 import Slider from "./slider/Slider";
+import CheckBox from "./checkbox/CheckBox";
 
 const Container: React.FC = () => {
   const onChangeSlider = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value);
+  };
+
+  const onChangeCheckBox = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.checked);
   };
   return (
     <div className="password-settings">
@@ -25,7 +30,16 @@ const Container: React.FC = () => {
           </div>
         </div>
         <div className="col-md-12">
-          <div className="row checkbox-container">Checkbox component</div>
+          <div className="row checkbox-container">
+            <CheckBox
+              name="uppercase"
+              checked={false}
+              label="Uppercase"
+              value="yes"
+              disabled={false}
+              onChange={onChangeCheckBox}
+            />
+          </div>
         </div>
       </div>
       <br />
