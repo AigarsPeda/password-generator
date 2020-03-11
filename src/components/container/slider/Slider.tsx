@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import "./Slider.scss";
 
 interface ISlider {
@@ -12,6 +12,8 @@ interface ISlider {
 
 const Slider: React.FC<ISlider> = props => {
   const { step, min, max, value, onChangeValue, defaultLength = 10 } = props;
+  const [range, setRange] = useState<number>();
+  const rangeRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
   const activeRangeColor = "#4aa1f3";
   const rangeBackground = "#d7dcdf";
@@ -20,7 +22,17 @@ const Slider: React.FC<ISlider> = props => {
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     onChangeValue(e);
+    const value = parseInt(e.target.value, 10);
+    setRange(value);
+    const progress = (value / max) * 100 + "%";
+    const newBackgroundStyle = `linear-gradient(90deg, ${activeRangeColor} 0% ${progress}, ${rangeBackground} ${progress} 100%)`;
+    rangeRef.current.style.background = newBackgroundStyle;
   };
+
+  if (range !== defaultLength || !range) {
+    setRange(defaultLength);
+    //range = defaultLength;
+  }
 
   const progressValue = defaultLength;
   const progress = (progressValue / max) * 100 + "%";
@@ -32,6 +44,7 @@ const Slider: React.FC<ISlider> = props => {
     <div className="slider-container">
       <div className="slider">
         <input
+          ref={rangeRef}
           className="range-slider"
           type="range"
           step={step}
