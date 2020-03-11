@@ -41,7 +41,7 @@ const Slider: React.FC<ISlider> = props => {
           onChange={handleChange(max)}
           style={styleInput}
         />
-        <span className="range-slider-value">10</span>
+        <span className="range-slider-value">{progressValue}</span>
       </div>
     </div>
   );
