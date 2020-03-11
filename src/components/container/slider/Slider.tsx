@@ -13,10 +13,19 @@ interface ISlider {
 const Slider: React.FC<ISlider> = props => {
   const { step, min, max, value, onChangeValue, defaultLength = 10 } = props;
 
+  const activeRangeColor = "#4aa1f3";
+  const rangeBackground = "#d7dcdf";
+
   const handleChange = (max: number) => (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     onChangeValue(e);
+  };
+
+  const progressValue = defaultLength;
+  const progress = (progressValue / max) * 100 + "%";
+  const styleInput = {
+    background: `linear-gradient(90deg, ${activeRangeColor} 0% ${progress}, ${rangeBackground} ${progress} 100%)`
   };
 
   return (
@@ -29,8 +38,8 @@ const Slider: React.FC<ISlider> = props => {
           min={min}
           max={max}
           value={value}
-          defaultValue={defaultLength}
           onChange={handleChange(max)}
+          style={styleInput}
         />
         <span className="range-slider-value">10</span>
       </div>

@@ -3,7 +3,7 @@ import "./CheckBox.scss";
 
 interface ICheckBox {
   label: string;
-  value: string;
+  value?: string;
   checked: boolean;
   name: string;
   disabled?: boolean;

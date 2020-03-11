@@ -4,6 +4,31 @@ import Button from "./button/Button";
 import Slider from "./slider/Slider";
 import CheckBox from "./checkbox/CheckBox";
 
+const CHECKBOX_LIST: CheckBox[] = [
+  {
+    id: 0,
+    name: "uppercase",
+    label: "Uppercase",
+    isChecked: true,
+    disabled: false
+  },
+  {
+    id: 1,
+    name: "lowercase",
+    label: "Lowercase",
+    isChecked: true,
+    disabled: false
+  },
+  {
+    id: 2,
+    name: "symbols",
+    label: "Symbols",
+    isChecked: true,
+    disabled: false
+  },
+  { id: 3, name: "numbers", label: "Numbers", isChecked: true, disabled: false }
+];
+
 const Container: React.FC = () => {
   const onChangeSlider = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value);
@@ -23,22 +48,26 @@ const Container: React.FC = () => {
               min={1}
               max={60}
               step={1}
-              value={10}
-              defaultLength={10}
+              value={50}
+              defaultLength={50}
               onChangeValue={onChangeSlider}
             />
           </div>
         </div>
         <div className="col-md-12">
           <div className="row checkbox-container">
-            <CheckBox
-              name="uppercase"
-              checked={false}
-              label="Uppercase"
-              value="yes"
-              disabled={false}
-              onChange={onChangeCheckBox}
-            />
+            {CHECKBOX_LIST.map(checkbox => {
+              return (
+                <CheckBox
+                  key={checkbox.id}
+                  name={checkbox.name}
+                  checked={checkbox.isChecked}
+                  label={checkbox.label}
+                  //value="yes"
+                  onChange={onChangeCheckBox}
+                />
+              );
+            })}
           </div>
         </div>
       </div>
