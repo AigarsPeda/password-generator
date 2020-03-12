@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Container.scss";
 import Button from "./button/Button";
 import Slider from "./slider/Slider";
@@ -30,8 +30,10 @@ const CHECKBOX_LIST: CheckBox[] = [
 ];
 
 const Container: React.FC = () => {
+  const [rangeValue, setRangeValue] = useState(12);
+
   const onChangeSlider = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
+    setRangeValue(parseInt(e.target.value, 10));
   };
 
   const onChangeCheckBox = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,8 +50,8 @@ const Container: React.FC = () => {
               min={1}
               max={60}
               step={1}
-              value={50}
-              defaultLength={50}
+              value={rangeValue}
+              defaultLength={rangeValue}
               onChangeValue={onChangeSlider}
             />
           </div>
@@ -63,7 +65,6 @@ const Container: React.FC = () => {
                   name={checkbox.name}
                   checked={checkbox.isChecked}
                   label={checkbox.label}
-                  //value="yes"
                   onChange={onChangeCheckBox}
                 />
               );

@@ -31,7 +31,6 @@ const Slider: React.FC<ISlider> = props => {
 
   if (range !== defaultLength || !range) {
     setRange(defaultLength);
-    //range = defaultLength;
   }
 
   const progressValue = defaultLength;
