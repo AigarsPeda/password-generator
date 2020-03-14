@@ -31,13 +31,24 @@ const CHECKBOX_LIST: CheckBox[] = [
 
 const Container: React.FC = () => {
   const [rangeValue, setRangeValue] = useState(12);
+  const [checkboxes, setCheckBoxes] = useState<CheckBox[]>(CHECKBOX_LIST);
 
   const onChangeSlider = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRangeValue(parseInt(e.target.value, 10));
   };
 
   const onChangeCheckBox = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.checked);
+    const { name } = e.target;
+    const newCheckboxes = checkboxes.map(checkbox => {
+      if (checkbox.name === name) {
+        return {
+          ...checkbox,
+          isChecked: !checkbox.isChecked
+        };
+      }
+      return checkbox;
+    });
+    setCheckBoxes(newCheckboxes);
   };
   return (
     <div className="password-settings">
@@ -58,7 +69,7 @@ const Container: React.FC = () => {
         </div>
         <div className="col-md-12">
           <div className="row checkbox-container">
-            {CHECKBOX_LIST.map(checkbox => {
+            {checkboxes.map(checkbox => {
               return (
                 <CheckBox
                   key={checkbox.id}
