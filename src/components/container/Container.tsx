@@ -66,7 +66,6 @@ const Container: React.FC = () => {
               onChangeValue={onChangeSlider}
             />
           </div>
-          <p>ha</p>
         </div>
         <div className="col-md-12">
           <div className="row checkbox-container">
