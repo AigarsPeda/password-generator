@@ -85,7 +85,7 @@ const Container: React.FC = () => {
       </div>
       <br />
       <div className="text-center">
-        <div className="row rrrr">
+        <div className="row">
           <div className="col-md-12">
             <Button className="btn password-btn" label="Copy password" />
           </div>
