@@ -32,6 +32,12 @@ const CHECKBOX_LIST: CheckBox[] = [
 const Container: React.FC = () => {
   const [rangeValue, setRangeValue] = useState(12);
   const [checkboxes, setCheckBoxes] = useState<CheckBox[]>(CHECKBOX_LIST);
+  const [checkBoxesState, setCheckBoxesState] = useState({
+    uppercase: true,
+    lowercase: true,
+    symbols: true,
+    numbers: true
+  });
 
   const onChangeSlider = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRangeValue(parseInt(e.target.value, 10));
@@ -41,6 +47,7 @@ const Container: React.FC = () => {
     const { name } = e.target;
     const newCheckboxes = checkboxes.map(checkbox => {
       if (checkbox.name === name) {
+        setCheckBoxesState({ ...checkBoxesState, [name]: e.target.checked });
         return {
           ...checkbox,
           isChecked: !checkbox.isChecked
@@ -50,6 +57,7 @@ const Container: React.FC = () => {
     });
     setCheckBoxes(newCheckboxes);
   };
+  console.log(checkBoxesState);
   return (
     <div className="password-settings">
       <h3>Use the slider, and select from the options</h3>
