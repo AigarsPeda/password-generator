@@ -6,7 +6,7 @@ type CheckBox = {
   disabled: boolean;
 };
 
-type Some = {
+type PasswordProps = {
   uppercase: boolean;
   lowercase: boolean;
   symbols: boolean;

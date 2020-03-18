@@ -29,7 +29,44 @@ const setNumbers = (isNumeric: boolean) => {
   return "";
 };
 
+const getRandomInteger = (min: number, max: number) => {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+const passwordCharacters = () => {
+  const characterList = characters;
+  let password = "";
+  if (characterList.length > 0) {
+    for (let i = 0; i < passwordLength; i++) {
+      password += characterList[getRandomInteger(0, characterList.length - 1)];
+    }
+    characters = "";
+    passwordLength = 0;
+    return password;
+  }
+  return;
+};
+
 export const setPasswordLength = (length: number) => {
   passwordLength = length;
   return length;
+};
+
+export const generatePasswordLength = () => {
+  return passwordLength;
+};
+
+export const generatePassword = (
+  passwordProps: PasswordProps,
+  pwdLength: number
+) => {
+  const { uppercase, lowercase, symbols, numbers } = passwordProps;
+  setPasswordLength(pwdLength);
+  setUpperCase(uppercase);
+  setLowerCase(lowercase);
+  setSymbols(symbols);
+  setNumbers(numbers);
+
+  const password = passwordCharacters();
+  return password;
 };

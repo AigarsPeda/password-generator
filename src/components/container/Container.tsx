@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Container.scss";
 import Button from "./button/Button";
 import Slider from "./slider/Slider";
 import CheckBox from "./checkbox/CheckBox";
+import { generatePassword, setPasswordLength } from "../../utils/helper";
 
 const CHECKBOX_LIST: CheckBox[] = [
   {
@@ -32,7 +33,7 @@ const CHECKBOX_LIST: CheckBox[] = [
 const Container: React.FC = () => {
   const [rangeValue, setRangeValue] = useState(12);
   const [checkboxes, setCheckBoxes] = useState<CheckBox[]>(CHECKBOX_LIST);
-  const [checkBoxesState, setCheckBoxesState] = useState({
+  const [checkBoxesState, setCheckBoxesState] = useState<PasswordProps>({
     uppercase: true,
     lowercase: true,
     symbols: true,
@@ -57,6 +58,24 @@ const Container: React.FC = () => {
     });
     setCheckBoxes(newCheckboxes);
   };
+
+  const passwordGenerated = () => {
+    const psw = generatePassword(checkBoxesState, rangeValue);
+    console.log(psw);
+  };
+
+  useEffect(() => {
+    setPasswordLength(rangeValue);
+    passwordGenerated();
+  }, [
+    passwordGenerated,
+    setPasswordLength,
+    checkBoxesState.lowercase,
+    checkBoxesState.numbers,
+    checkBoxesState.symbols,
+    checkBoxesState.uppercase
+  ]);
+
   console.log(checkBoxesState);
   return (
     <div className="password-settings">
