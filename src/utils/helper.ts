@@ -49,6 +49,7 @@ const passwordCharacters = () => {
 
 export const setPasswordLength = (length: number) => {
   passwordLength = length;
+  // ?
   return length;
 };
 
