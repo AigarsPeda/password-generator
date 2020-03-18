@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Display.scss";
 
 import Container from "../container/Container";
 import Button from "../container/button/Button";
+import { generatePassword } from "../../utils/helper";
 
 const Display: React.FC = () => {
+  const [password, setPassword] = useState<string>("");
+  const [range, setRange] = useState<number>();
+  const [passwordProps, setPasswordProps] = useState<PasswordProps>();
+
+  const generateNewPassword = () => {
+    if (!passwordProps || !range) {
+      return;
+    }
+    const pwd = generatePassword(passwordProps, range);
+    if (pwd) {
+      setPassword(pwd);
+    }
+  };
   return (
     <>
       <div className="row">
@@ -14,7 +28,7 @@ const Display: React.FC = () => {
               <input
                 type="text"
                 className="password-display-input"
-                value="assdsdfe332r2ewdwd"
+                value={password}
                 readOnly
               />
             </div>
@@ -24,11 +38,19 @@ const Display: React.FC = () => {
           </div>
           <div className="password-display-icons">
             <Button className="copy-btn" iconClass="far fa-copy" />
-            <Button className="generate-btn" iconClass="fas fa-sync-alt" />
+            <Button
+              className="generate-btn"
+              iconClass="fas fa-sync-alt"
+              handleClick={() => generateNewPassword()}
+            />
           </div>
         </div>
       </div>
-      <Container />
+      <Container
+        setPassword={setPassword}
+        setRange={setRange}
+        setPasswordProps={setPasswordProps}
+      />
     </>
   );
 };

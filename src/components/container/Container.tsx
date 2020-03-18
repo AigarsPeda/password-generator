@@ -30,7 +30,15 @@ const CHECKBOX_LIST: CheckBox[] = [
   { id: 3, name: "numbers", label: "Numbers", isChecked: true, disabled: false }
 ];
 
-const Container: React.FC = () => {
+interface IContainer {
+  setPassword: React.Dispatch<React.SetStateAction<string>>;
+  setRange: React.Dispatch<React.SetStateAction<number | undefined>>;
+  setPasswordProps: React.Dispatch<
+    React.SetStateAction<PasswordProps | undefined>
+  >;
+}
+
+const Container: React.FC<IContainer> = props => {
   const [rangeValue, setRangeValue] = useState(12);
   const [checkboxes, setCheckBoxes] = useState<CheckBox[]>(CHECKBOX_LIST);
   const [checkBoxesState, setCheckBoxesState] = useState<PasswordProps>({
@@ -39,9 +47,12 @@ const Container: React.FC = () => {
     symbols: true,
     numbers: true
   });
+  const { setPassword, setRange, setPasswordProps } = props;
 
   const onChangeSlider = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRangeValue(parseInt(e.target.value, 10));
+    setPasswordLength(parseInt(e.target.value, 10));
+    setRange(parseInt(e.target.value, 10));
   };
 
   const onChangeCheckBox = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,14 +72,19 @@ const Container: React.FC = () => {
 
   const passwordGenerated = () => {
     const psw = generatePassword(checkBoxesState, rangeValue);
-    console.log(psw);
+    if (psw) {
+      setPassword(psw);
+    }
   };
 
   useEffect(() => {
     setPasswordLength(rangeValue);
+    setRange(rangeValue);
+    setRangeValue(rangeValue);
+    setPasswordProps(checkBoxesState);
     passwordGenerated();
   }, [
-    passwordGenerated,
+    // passwordGenerated,
     setPasswordLength,
     checkBoxesState.lowercase,
     checkBoxesState.numbers,
