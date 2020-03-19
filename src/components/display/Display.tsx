@@ -24,7 +24,7 @@ const Display: React.FC = () => {
       <div className="row">
         <div className="col-md-12 password-display-container">
           <div>
-            <div className="password-display">
+            <div className="password-display ccc">
               <input
                 type="text"
                 className="password-display-input"
