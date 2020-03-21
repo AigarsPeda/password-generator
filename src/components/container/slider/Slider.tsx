@@ -41,7 +41,7 @@ const Slider: React.FC<ISlider> = props => {
 
   return (
     <div className="slider-container">
-      <div className="slider">
+      <div className="slider x">
         <input
           ref={rangeRef}
           className="range-slider"
