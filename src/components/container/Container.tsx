@@ -49,12 +49,6 @@ const Container: React.FC<IContainer> = props => {
   });
   const { setPassword, setRange, setPasswordProps } = props;
 
-  const onChangeSlider = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setRangeValue(parseInt(e.target.value, 10));
-    setPasswordLength(parseInt(e.target.value, 10));
-    setRange(parseInt(e.target.value, 10));
-  };
-
   const onChangeCheckBox = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name } = e.target;
     const newCheckboxes = checkboxes.map(checkbox => {
@@ -70,11 +64,18 @@ const Container: React.FC<IContainer> = props => {
     setCheckBoxes(newCheckboxes);
   };
 
-  const passwordGenerated = () => {
-    const psw = generatePassword(checkBoxesState, rangeValue);
+  const passwordGenerated = (check: PasswordProps, num: number) => {
+    const psw = generatePassword(check, num);
     if (psw) {
       setPassword(psw);
     }
+  };
+
+  const onChangeSlider = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRangeValue(parseInt(e.target.value, 10));
+    setPasswordLength(parseInt(e.target.value, 10));
+    setRange(parseInt(e.target.value, 10));
+    passwordGenerated(checkBoxesState, parseInt(e.target.value, 10));
   };
 
   useEffect(() => {
@@ -82,7 +83,7 @@ const Container: React.FC<IContainer> = props => {
     setRange(rangeValue);
     setRangeValue(rangeValue);
     setPasswordProps(checkBoxesState);
-    passwordGenerated();
+    passwordGenerated(checkBoxesState, rangeValue);
   }, [
     // passwordGenerated,
     setPasswordLength,
@@ -92,7 +93,6 @@ const Container: React.FC<IContainer> = props => {
     checkBoxesState.uppercase
   ]);
 
-  console.log(checkBoxesState);
   return (
     <div className="password-settings">
       <h3>Use the slider, and select from the options</h3>
