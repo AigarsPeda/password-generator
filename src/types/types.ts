@@ -12,3 +12,7 @@ type PasswordProps = {
   symbols: boolean;
   numbers: boolean;
 };
+
+// type X = {
+//   [key: string]: boolean;
+// };
