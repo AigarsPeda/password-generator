@@ -9,6 +9,22 @@ const Display: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [range, setRange] = useState<number>();
   const [passwordProps, setPasswordProps] = useState<PasswordProps>();
+  let pwdDescription = "";
+
+  const setBackGroundColor = (psw: string) => {
+    if (psw && psw.length >= 1 && psw.length <= 5) {
+      pwdDescription = "Bad password";
+      return "#cb473e";
+    } else if (psw && psw.length >= 6 && psw.length <= 10) {
+      pwdDescription = "Weak password";
+      return "#f07d58";
+    } else if (psw && psw.length > 10) {
+      pwdDescription = "Strong password";
+      return "#55a95d";
+    } else {
+      return "#cb473e";
+    }
+  };
 
   const generateNewPassword = () => {
     if (!passwordProps || !range) {
@@ -22,7 +38,10 @@ const Display: React.FC = () => {
   return (
     <>
       <div className="row">
-        <div className="col-md-12 password-display-container">
+        <div
+          className="col-md-12 password-display-container"
+          style={{ backgroundColor: setBackGroundColor(password) }}
+        >
           <div style={{ width: "100%" }}>
             <div className="password-display">
               <input
@@ -33,7 +52,17 @@ const Display: React.FC = () => {
               />
             </div>
             <div className="password-description">
-              <i className="fas fa-check-circle" /> Strong password
+              {password && password.length > 10 ? (
+                <>
+                  <i className="fas fa-check-circle" />
+                  {pwdDescription}
+                </>
+              ) : (
+                <>
+                  <i className="fas fa-exclamation-circle" />
+                  {pwdDescription}
+                </>
+              )}
             </div>
           </div>
           <div className="password-display-icons">
