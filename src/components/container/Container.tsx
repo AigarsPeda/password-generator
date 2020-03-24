@@ -51,6 +51,7 @@ const Container: React.FC<IContainer> = props => {
 
   const onChangeCheckBox = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name } = e.target;
+    // Object.keys(checkBoxesState).every((k: string) => !checkBoxesState[k]);
     // Object.keys(checkBoxesState).every(k => checkBoxesState[k] === false);
     const newCheckboxes = checkboxes.map(checkbox => {
       if (checkbox.name === name) {
