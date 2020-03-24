@@ -59,6 +59,8 @@ const Container: React.FC<IContainer> = props => {
     // (key: keyof PasswordProps)
 
     const checkedCount = Object.keys(checkBoxesState).filter(
+      // WHAT TYPE IS [KEY] !!??
+      // @ts-ignore
       (key: string) => checkBoxesState[key]
     );
     const disabled = checkedCount.length === 1;
@@ -107,8 +109,10 @@ const Container: React.FC<IContainer> = props => {
     setRangeValue(rangeValue);
     setPasswordProps(checkBoxesState);
     passwordGenerated(checkBoxesState, rangeValue);
+    checkBoxCount();
   }, [
     // passwordGenerated,
+    // checkBoxCount,
     setPasswordLength,
     checkBoxesState.lowercase,
     checkBoxesState.numbers,
@@ -143,6 +147,11 @@ const Container: React.FC<IContainer> = props => {
                   checked={checkbox.isChecked}
                   label={checkbox.label}
                   onChange={onChangeCheckBox}
+                  disabled={
+                    checked &&
+                    checkbox.isChecked &&
+                    checkedName === checkbox.name
+                  }
                 />
               );
             })}

@@ -16,3 +16,5 @@ type PasswordProps = {
 // type X = {
 //   [key: string]: boolean;
 // };
+
+// ["uppercase"]: boolean;
