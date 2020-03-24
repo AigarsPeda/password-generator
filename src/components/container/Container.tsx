@@ -47,12 +47,33 @@ const Container: React.FC<IContainer> = props => {
     symbols: true,
     numbers: true
   });
+  const [checked, setChecked] = useState(false);
+  const [checkedName, setCheckedName] = useState("");
   const { setPassword, setRange, setPasswordProps } = props;
+
+  const checkBoxCount = () => {
+    // const getKeyValue = <T extends object, U extends keyof T>(key: U) => (obj: T) =>
+    // obj[key];
+
+    // Array<keyof PasswordProps>
+    // (key: keyof PasswordProps)
+
+    const checkedCount = Object.keys(checkBoxesState).filter(
+      (key: string) => checkBoxesState[key]
+    );
+    const disabled = checkedCount.length === 1;
+    const name = checkedCount[0];
+    if (disabled) {
+      setChecked(disabled);
+      setCheckedName(name);
+    } else {
+      setChecked(false);
+      setCheckedName("");
+    }
+  };
 
   const onChangeCheckBox = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name } = e.target;
-    // Object.keys(checkBoxesState).every((k: string) => !checkBoxesState[k]);
-    // Object.keys(checkBoxesState).every(k => checkBoxesState[k] === false);
     const newCheckboxes = checkboxes.map(checkbox => {
       if (checkbox.name === name) {
         setCheckBoxesState({ ...checkBoxesState, [name]: e.target.checked });
