@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./Display.scss";
 
 import Container from "../container/Container";
 import Button from "../container/button/Button";
-import { generatePassword } from "../../utils/helper";
+import { generatePassword, copyToClipBoard } from "../../utils/helper";
 
 const Display: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [range, setRange] = useState<number>();
   const [passwordProps, setPasswordProps] = useState<PasswordProps>();
+  const passwordRef = useRef<HTMLInputElement>(null);
   let pwdDescription = "";
 
   const setBackGroundColor = (psw: string) => {
@@ -35,6 +36,14 @@ const Display: React.FC = () => {
       setPassword(pwd);
     }
   };
+
+  const copyClipBoard = () => {
+    if (passwordRef.current === null) {
+      return;
+    }
+    copyToClipBoard(passwordRef.current);
+  };
+
   return (
     <>
       <div className="row">
@@ -45,6 +54,7 @@ const Display: React.FC = () => {
           <div style={{ width: "100%" }}>
             <div className="password-display">
               <input
+                ref={passwordRef}
                 type="text"
                 className="password-display-input"
                 value={password}
@@ -66,7 +76,11 @@ const Display: React.FC = () => {
             </div>
           </div>
           <div className="password-display-icons">
-            <Button className="copy-btn" iconClass="far fa-copy" />
+            <Button
+              className="copy-btn"
+              iconClass="far fa-copy"
+              handleClick={() => copyClipBoard()}
+            />
             <Button
               className="generate-btn"
               iconClass="fas fa-sync-alt"

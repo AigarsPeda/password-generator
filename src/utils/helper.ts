@@ -71,3 +71,8 @@ export const generatePassword = (
   const password = passwordCharacters();
   return password;
 };
+
+export const copyToClipBoard = (elementRef: HTMLInputElement) => {
+  elementRef.select();
+  document.execCommand("copy");
+};
