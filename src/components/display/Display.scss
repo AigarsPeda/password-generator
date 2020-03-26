@@ -1,4 +1,5 @@
 .password-display-container {
+  cursor: default;
   border: 1px solid #eaeaea;
   border-radius: 5px;
   background-color: #cb473e;
@@ -18,6 +19,7 @@
     height: 100%;
     line-height: 150px;
     .password-display-input {
+      cursor: default;
       background-color: inherit;
       border: none !important;
       outline: none !important;

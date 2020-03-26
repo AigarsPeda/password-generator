@@ -16,9 +16,7 @@ const Tooltip: React.FC<ITooltip> = props => {
         <div className={`tooltip-bubble tooltip-${position}`}>
           <div className="tooltip-message">{massage}</div>
         </div>
-      ) : (
-        ""
-      )}
+      ) : null}
     </>
   );
 };
