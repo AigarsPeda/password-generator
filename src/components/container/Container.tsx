@@ -3,7 +3,11 @@ import "./Container.scss";
 import Button from "./button/Button";
 import Slider from "./slider/Slider";
 import CheckBox from "./checkbox/CheckBox";
-import { generatePassword, setPasswordLength } from "../../utils/helper";
+import {
+  generatePassword,
+  setPasswordLength,
+  copyToClipBoard
+} from "../../utils/helper";
 
 const CHECKBOX_LIST: CheckBox[] = [
   {
@@ -36,6 +40,7 @@ interface IContainer {
   setPasswordProps: React.Dispatch<
     React.SetStateAction<PasswordProps | undefined>
   >;
+  passwordRef: React.RefObject<HTMLInputElement>;
 }
 
 const Container: React.FC<IContainer> = props => {
@@ -49,7 +54,7 @@ const Container: React.FC<IContainer> = props => {
   });
   const [checked, setChecked] = useState(false);
   const [checkedName, setCheckedName] = useState("");
-  const { setPassword, setRange, setPasswordProps } = props;
+  const { setPassword, setRange, setPasswordProps, passwordRef } = props;
 
   const checkBoxCount = () => {
     // const getKeyValue = <T extends object, U extends keyof T>(key: U) => (obj: T) =>
@@ -72,6 +77,13 @@ const Container: React.FC<IContainer> = props => {
       setChecked(false);
       setCheckedName("");
     }
+  };
+
+  const copyClipBoard = () => {
+    if (passwordRef.current === null) {
+      return;
+    }
+    copyToClipBoard(passwordRef.current);
   };
 
   const onChangeCheckBox = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -162,7 +174,11 @@ const Container: React.FC<IContainer> = props => {
       <div className="text-center">
         <div className="row">
           <div className="col-md-12">
-            <Button className="btn password-btn" label="Copy password" />
+            <Button
+              className="btn password-btn"
+              label="Copy password"
+              handleClick={() => copyClipBoard()}
+            />
           </div>
         </div>
       </div>

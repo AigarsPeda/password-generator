@@ -93,6 +93,7 @@ const Display: React.FC = () => {
         setPassword={setPassword}
         setRange={setRange}
         setPasswordProps={setPasswordProps}
+        passwordRef={passwordRef}
       />
     </>
   );
