@@ -3,12 +3,14 @@ import "./Display.scss";
 
 import Container from "../container/Container";
 import Button from "../container/button/Button";
+import Tooltip from "../container/tooltip/Tooltip";
 import { generatePassword, copyToClipBoard } from "../../utils/helper";
 
 const Display: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [range, setRange] = useState<number>();
   const [passwordProps, setPasswordProps] = useState<PasswordProps>();
+  const [tooltip, setTooltip] = useState(false);
   const passwordRef = useRef<HTMLInputElement>(null);
   let pwdDescription = "";
 
@@ -42,6 +44,10 @@ const Display: React.FC = () => {
       return;
     }
     copyToClipBoard(passwordRef.current);
+    setTooltip(true);
+    setTimeout(() => {
+      setTooltip(false);
+    }, 2000);
   };
 
   return (
@@ -85,6 +91,11 @@ const Display: React.FC = () => {
               className="generate-btn"
               iconClass="fas fa-sync-alt"
               handleClick={() => generateNewPassword()}
+            />
+            <Tooltip
+              massage="Copied"
+              position="left"
+              displayTooltip={tooltip}
             />
           </div>
         </div>
