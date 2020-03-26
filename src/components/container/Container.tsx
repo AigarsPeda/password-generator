@@ -8,6 +8,7 @@ import {
   setPasswordLength,
   copyToClipBoard
 } from "../../utils/helper";
+import Tooltip from "./tooltip/Tooltip";
 
 const CHECKBOX_LIST: CheckBox[] = [
   {
@@ -54,6 +55,7 @@ const Container: React.FC<IContainer> = props => {
   });
   const [checked, setChecked] = useState(false);
   const [checkedName, setCheckedName] = useState("");
+  const [tooltip, setTooltip] = useState(false);
   const { setPassword, setRange, setPasswordProps, passwordRef } = props;
 
   const checkBoxCount = () => {
@@ -84,6 +86,10 @@ const Container: React.FC<IContainer> = props => {
       return;
     }
     copyToClipBoard(passwordRef.current);
+    setTooltip(true);
+    setTimeout(() => {
+      setTooltip(false);
+    }, 2000);
   };
 
   const onChangeCheckBox = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -178,6 +184,11 @@ const Container: React.FC<IContainer> = props => {
               className="btn password-btn"
               label="Copy password"
               handleClick={() => copyClipBoard()}
+            />
+            <Tooltip
+              massage="Copied"
+              position="bottom"
+              displayTooltip={tooltip}
             />
           </div>
         </div>
