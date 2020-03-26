@@ -186,7 +186,7 @@ const Container: React.FC<IContainer> = props => {
               handleClick={() => copyClipBoard()}
             />
             <Tooltip
-              massage="Copied"
+              massage="Copied!"
               position="bottom"
               displayTooltip={tooltip}
             />
