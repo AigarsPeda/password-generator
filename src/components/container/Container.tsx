@@ -59,12 +59,6 @@ const Container: React.FC<IContainer> = props => {
   const { setPassword, setRange, setPasswordProps, passwordRef } = props;
 
   const checkBoxCount = () => {
-    // const getKeyValue = <T extends object, U extends keyof T>(key: U) => (obj: T) =>
-    // obj[key];
-
-    // Array<keyof PasswordProps>
-    // (key: keyof PasswordProps)
-
     const checkedCount = Object.keys(checkBoxesState).filter(
       // WHAT TYPE IS [KEY] !!??
       // @ts-ignore
