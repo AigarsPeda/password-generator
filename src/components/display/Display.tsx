@@ -11,6 +11,7 @@ const Display: React.FC = () => {
   const [range, setRange] = useState<number>();
   const [passwordProps, setPasswordProps] = useState<PasswordProps>();
   const [tooltip, setTooltip] = useState(false);
+  const [type, setType] = useState("password");
   const passwordRef = useRef<HTMLInputElement>(null);
   let pwdDescription = "";
 
@@ -50,8 +51,32 @@ const Display: React.FC = () => {
     }, 2000);
   };
 
+  const onSelectTag = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setType(e.target.value);
+  };
+
+  const selectTagStyles = {
+    color: "#506175",
+    width: "20%",
+    backgroundColor: "inherit",
+    height: "auto",
+    marginLeft: "-14px"
+  };
+
   return (
     <>
+      <div>
+        <select
+          name="type"
+          value={type}
+          onChange={onSelectTag}
+          className="form-control form-control-sm"
+          style={selectTagStyles}
+        >
+          <option value="password">Random Password</option>
+          <option value="pin">PIN</option>
+        </select>
+      </div>
       <div className="row">
         <div
           className="col-md-12 password-display-container"
