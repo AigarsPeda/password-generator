@@ -126,6 +126,7 @@ const Display: React.FC = () => {
         </div>
       </div>
       <Container
+        type={type}
         setPassword={setPassword}
         setRange={setRange}
         setPasswordProps={setPasswordProps}

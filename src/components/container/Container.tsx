@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import "./Container.scss";
 import Button from "./button/Button";
 import Slider from "./slider/Slider";
@@ -42,6 +42,7 @@ interface IContainer {
     React.SetStateAction<PasswordProps | undefined>
   >;
   passwordRef: React.RefObject<HTMLInputElement>;
+  type: string;
 }
 
 const Container: React.FC<IContainer> = props => {
@@ -56,7 +57,11 @@ const Container: React.FC<IContainer> = props => {
   const [checked, setChecked] = useState(false);
   const [checkedName, setCheckedName] = useState("");
   const [tooltip, setTooltip] = useState(false);
-  const { setPassword, setRange, setPasswordProps, passwordRef } = props;
+  const [minMaxValue, setMinMaxValue] = useState({
+    min: 1,
+    max: 60
+  });
+  const { setPassword, setRange, setPasswordProps, passwordRef, type } = props;
 
   const checkBoxCount = () => {
     const checkedCount = Object.keys(checkBoxesState).filter(
@@ -86,19 +91,25 @@ const Container: React.FC<IContainer> = props => {
     }, 2000);
   };
 
+  // const checkBoxProperties = (checkBoxesProps: PasswordProps) => {
+  //   const {} = checkBoxCount
+  // }
+
   const onChangeCheckBox = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name } = e.target;
-    const newCheckboxes = checkboxes.map(checkbox => {
-      if (checkbox.name === name) {
-        setCheckBoxesState({ ...checkBoxesState, [name]: e.target.checked });
-        return {
-          ...checkbox,
-          isChecked: !checkbox.isChecked
-        };
-      }
-      return checkbox;
-    });
-    setCheckBoxes(newCheckboxes);
+    if (type !== "pin") {
+      const { name } = e.target;
+      const newCheckboxes = checkboxes.map(checkbox => {
+        if (checkbox.name === name) {
+          setCheckBoxesState({ ...checkBoxesState, [name]: e.target.checked });
+          return {
+            ...checkbox,
+            isChecked: !checkbox.isChecked
+          };
+        }
+        return checkbox;
+      });
+      setCheckBoxes(newCheckboxes);
+    }
   };
 
   const passwordGenerated = (check: PasswordProps, num: number) => {
@@ -140,8 +151,8 @@ const Container: React.FC<IContainer> = props => {
           <div className="form-group">
             &nbsp;
             <Slider
-              min={1}
-              max={60}
+              min={minMaxValue.min}
+              max={minMaxValue.max}
               step={1}
               value={rangeValue}
               defaultLength={rangeValue}
