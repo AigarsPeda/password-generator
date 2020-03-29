@@ -96,8 +96,8 @@ const Container: React.FC<IContainer> = props => {
   // }
 
   const onChangeCheckBox = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (type !== "pin") {
-      const { name } = e.target;
+    const { name } = e.target;
+    if (type === "pin") {
       const newCheckboxes = checkboxes.map(checkbox => {
         if (checkbox.name === name) {
           setCheckBoxesState({ ...checkBoxesState, [name]: e.target.checked });
