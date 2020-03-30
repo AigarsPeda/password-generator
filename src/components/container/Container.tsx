@@ -91,13 +91,23 @@ const Container: React.FC<IContainer> = props => {
     }, 2000);
   };
 
-  // const checkBoxProperties = (checkBoxesProps: PasswordProps) => {
-  //   const {} = checkBoxCount
-  // }
+  const onTypePin = () => {
+    const newCheckboxes = checkboxes.map(checkbox => {
+      if (checkbox.name !== "numbers") {
+        //setCheckBoxesState({ ...checkBoxesState, [name]: e.target.checked });
+        return {
+          ...checkbox,
+          isChecked: !checkbox.isChecked
+        };
+      }
+      return checkbox;
+    });
+    setCheckBoxes(newCheckboxes);
+  };
 
   const onChangeCheckBox = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name } = e.target;
-    if (type === "pin") {
+    if (type !== "pin") {
       const newCheckboxes = checkboxes.map(checkbox => {
         if (checkbox.name === name) {
           setCheckBoxesState({ ...checkBoxesState, [name]: e.target.checked });
@@ -109,6 +119,16 @@ const Container: React.FC<IContainer> = props => {
         return checkbox;
       });
       setCheckBoxes(newCheckboxes);
+    } else {
+      // let newCheckBoxesState = checkBoxesState;
+      // newCheckBoxesState = {
+      //   uppercase: false,
+      //   lowercase: false,
+      //   symbols: false,
+      //   numbers: true
+      // };
+      // setCheckBoxesState(newCheckBoxesState);
+      // console.log(checkBoxesState);
     }
   };
 
@@ -136,6 +156,7 @@ const Container: React.FC<IContainer> = props => {
   }, [
     // passwordGenerated,
     // checkBoxCount,
+    checkBoxesState,
     setPasswordLength,
     checkBoxesState.lowercase,
     checkBoxesState.numbers,
@@ -171,9 +192,10 @@ const Container: React.FC<IContainer> = props => {
                   label={checkbox.label}
                   onChange={onChangeCheckBox}
                   disabled={
-                    checked &&
-                    checkbox.isChecked &&
-                    checkedName === checkbox.name
+                    (checked &&
+                      checkbox.isChecked &&
+                      checkedName === checkbox.name) ||
+                    type === "pin"
                   }
                 />
               );
