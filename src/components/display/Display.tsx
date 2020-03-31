@@ -66,7 +66,7 @@ const Display: React.FC = () => {
   return (
     <>
       <div>
-        <select
+        {/* <select
           name="type"
           value={type}
           onChange={onSelectTag}
@@ -75,7 +75,7 @@ const Display: React.FC = () => {
         >
           <option value="password">Random Password</option>
           <option value="pin">PIN</option>
-        </select>
+        </select> */}
       </div>
       <div className="row">
         <div

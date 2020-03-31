@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import "./Container.scss";
 import Button from "./button/Button";
 import Slider from "./slider/Slider";
@@ -91,10 +91,12 @@ const Container: React.FC<IContainer> = props => {
     }, 2000);
   };
 
-  const onTypePin = () => {
+  const onChangeCheckBox = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name } = e.target;
+
     const newCheckboxes = checkboxes.map(checkbox => {
-      if (checkbox.name !== "numbers") {
-        //setCheckBoxesState({ ...checkBoxesState, [name]: e.target.checked });
+      if (checkbox.name === name) {
+        setCheckBoxesState({ ...checkBoxesState, [name]: e.target.checked });
         return {
           ...checkbox,
           isChecked: !checkbox.isChecked
@@ -103,33 +105,6 @@ const Container: React.FC<IContainer> = props => {
       return checkbox;
     });
     setCheckBoxes(newCheckboxes);
-  };
-
-  const onChangeCheckBox = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name } = e.target;
-    if (type !== "pin") {
-      const newCheckboxes = checkboxes.map(checkbox => {
-        if (checkbox.name === name) {
-          setCheckBoxesState({ ...checkBoxesState, [name]: e.target.checked });
-          return {
-            ...checkbox,
-            isChecked: !checkbox.isChecked
-          };
-        }
-        return checkbox;
-      });
-      setCheckBoxes(newCheckboxes);
-    } else {
-      // let newCheckBoxesState = checkBoxesState;
-      // newCheckBoxesState = {
-      //   uppercase: false,
-      //   lowercase: false,
-      //   symbols: false,
-      //   numbers: true
-      // };
-      // setCheckBoxesState(newCheckBoxesState);
-      // console.log(checkBoxesState);
-    }
   };
 
   const passwordGenerated = (check: PasswordProps, num: number) => {
@@ -154,8 +129,6 @@ const Container: React.FC<IContainer> = props => {
     passwordGenerated(checkBoxesState, rangeValue);
     checkBoxCount();
   }, [
-    // passwordGenerated,
-    // checkBoxCount,
     checkBoxesState,
     setPasswordLength,
     checkBoxesState.lowercase,
