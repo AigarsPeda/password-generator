@@ -11,3 +11,9 @@ npm i
 ## Scripts
 
 npm start
+
+### Screenshot
+
+![screenshots](/screenshots/1.jpg)
+![screenshots](/screenshots/2.jpg)
+![screenshots](/screenshots/3.jpg)
