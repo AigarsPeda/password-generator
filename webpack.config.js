@@ -5,6 +5,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, "/dist"),
     filename: "bundle.js"
+    //publicPath: "https://aigarspeda.github.io/password-generator"
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js"]
