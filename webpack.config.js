@@ -4,8 +4,8 @@ module.exports = {
   entry: "./src/index",
   output: {
     path: path.join(__dirname, "/dist"),
-    filename: "bundle.js",
-    publicPath: "/dist/"
+    filename: "bundle.js"
+    //publicPath: "/dist/"
     //publicPath: "https://aigarspeda.github.io/password-generator"
   },
   resolve: {
